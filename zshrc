@@ -1,4 +1,4 @@
-# If you come from bash you might have to change your $PATH.
+ # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
@@ -8,7 +8,7 @@ export ZSH="/Users/abhijeet.daspatnaik/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -68,7 +68,7 @@ HIST_STAMPS="mm/dd/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow brew history node npm kubectl zsh-autosuggestions)
+plugins=(git git-flow history node npm kubectl zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -97,18 +97,33 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export PATH="/usr/local/opt/node@10/bin:$PATH"
 
-export NVM_DIR="/Users/abhijeet.daspatnaik/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
+#general
+export c="code-insiders"
 mcd ()
 {
     mkdir -p -- "$1" &&
       cd -P -- "$1"
 }
+chpwd() ls
 
-#general
+run() {
+    number=$1
+    shift
+    for i in `seq $number`; do
+      $@
+    done
+}
+alias gnpm="sh ~/scripts/gitnpm.sh"
+
+alias cdp="cd ~/Documents/projects"
+alias cz="c ~/.zshrc"
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+alias dir="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'"
+alias c=$c
+alias sw="/Volumes/Macintosh\ HD/usr/sbin/system_profiler SPSoftwareDataType"
+alias hd="/Volumes/Macintosh\ HD/usr/sbin/system_profiler SPHardwareDataType"
 
 #kubectl
 export k=kubectl
@@ -117,6 +132,7 @@ alias kg="$k get"
 alias kd="$k describe"
 alias kaf="$k apply -f"
 alias kdry="$k --dry-run -o yaml"
+alias kdel="$k delete"
 
 #myob-auth
 export m="myob-auth"
@@ -127,24 +143,42 @@ alias mtax="$m k -e europa-preprod -n tax"
 
 #brew
 export b=brew
-alias bs="$b search "
-alias bi="$b install "
-alias bci="$b cask install "
+alias b="$b"
+alias bs="$b search"
+alias bi="$b install"
+alias bci="$b cask install"
+alias bcu="$b cask uninstall"
+alias bls="$b list"
+alias blink="$b link"
+alias blv="$b list --versions"
+alias bupg="$b upgrade"
+alias bu="$b uninstall"
 
 #git
 export g=git
 alias g=$g
 alias gi="$g init"
-alias gcl="$g clone "
-alias gs="$g status"
+alias gcl="$g clone"
+alias gst="$g status"
 alias gc="$g add . && $g commit -m "
 alias gm="$g checkout master && $g pull origin"
-alias gp="$g push "
-alias gpl="$g pull "
-alias gb="$g branch "
-alias gco="$g checkout "
-alias gpm="$g pull origin master"
-
+alias gps="$g push"
+alias gpl="$g pull"
+alias gb="$g branch"
+alias gco="$g checkout"
+alias gpo="$g pull origin"
+alias gpom="$g pull origin master"
+alias gcom="$g checkout master"
+alias grh="$g reset --hard"
+alias grs="$g reset --soft"
+alias ga="$g add -A"
+alias gca="$g commit --amend"
+alias gpf="$g push -f"
+alias gpu="$g push -u origin HEAD" #same as git push --set-upstream origin branchName
+alias gd="$g diff"
+alias gclean="$g clean -f -d"
+alias gpr="$g pull --rebase"
+alias gl="$g log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'"
 
 #npm
 export n=npm
@@ -153,7 +187,18 @@ alias ni="$n install"
 alias nid="$n install --save-dev"
 alias nr="$n run"
 alias nx=npx
-
+alias nt="$n run test"
+alias ns="$n run start"
+alias niq="$n install --quiet"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/node@10/bin:$PATH"
+export NVM_DIR="/Users/abhijeet.daspatnaik/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
