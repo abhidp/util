@@ -3,14 +3,11 @@
   "terminal.explorerKind": "external",
   "terminal.integrated.shell.osx": "/bin/zsh",
   "terminal.integrated.fontFamily": "MesloLGS NF",
-  "editor.fontSize": 15,
-  "window.zoomLevel": 2,
-  "editor.formatOnPaste": true,
+  "window.zoomLevel": 1,
   "editor.formatOnType": true,
   "editor.minimap.enabled": false,
   "editor.tabSize": 2,
   "editor.formatOnSaveTimeout": 1000,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabCompletion": "on",
   "mocha-snippets.semicolon": false,
   "explorer.confirmDelete": false,
@@ -18,6 +15,8 @@
   "editor.fontFamily": "FiraCode-Retina",
   "editor.fontLigatures": true,
   "editor.fontWeight": "500",
+  "javascript.autoClosingTags": true,
+  "javascript.suggest.autoImports": true,
   "vscode_custom_css.imports": [
     "file:///Users/abhijeet.daspatnaik/Public/synthwave84.css"
   ],
@@ -50,7 +49,6 @@
   "editor.matchBrackets": false,
   "bracket-pair-colorizer-2.showVerticalScopeLine": true,
   "bracket-pair-colorizer-2.showHorizontalScopeLine": true,
-  "prettier.semi": false,
   "emmet.showSuggestionsAsSnippets": true,
   "editor.suggest.shareSuggestSelections": true,
   "editor.suggest.localityBonus": true,
@@ -66,14 +64,29 @@
   "editor.wordBasedSuggestions": true,
   "editor.parameterHints.enabled": true,
   "prettier.alignObjectProperties": true,
-  "editor.formatOnSave": true,
   "terminal.integrated.enableBell": true,
   "terminal.integrated.copyOnSelection": true,
-  "files.autoSave": "onFocusChange",
   "terminal.integrated.cursorBlinking": true,
   "liveServer.settings.port": 3000,
-  "workbench.colorTheme": "SynthWave '84",
   "breadcrumbs.enabled": true,
   "editor.stablePeek": true,
-  "editor.acceptSuggestionOnCommitCharacter": true
+  "editor.acceptSuggestionOnCommitCharacter": true,
+  "editor.fontSize": 15,
+  "terminal.integrated.fontSize": 13,
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "editor.formatOnSave": true,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.accessibilitySupport": "on",
+  "files.autoSave": "onFocusChange",
+  "workbench.startupEditor": "newUntitledFile",
+  "docker.commands.build": null,
+  "[dockerfile]": {
+    "editor.autoIndent": "none",
+    "editor.formatOnSave": false
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
