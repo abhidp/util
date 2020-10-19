@@ -1,21 +1,25 @@
-# zmodload zsh/zprof # top of your .zshrc file
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-find $HOME -maxdepth 1 -iname '.zcompdump*' -mtime 1 -delete | grep -q "." && source $HOME/.zshrc
-
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/abhijeet.daspatnaik/.oh-my-zsh"
-export EDITOR=/usr/bin/nano
+export ZSH="/Users/abhi/.oh-my-zsh"
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -36,7 +40,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -48,7 +52,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -61,17 +65,17 @@ COMPLETION_WAITING_DOTS="true"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-HIST_STAMPS="mm/dd/yyyy"
+# HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git history zsh-autosuggestions aws)
+plugins=(git history zsh-autosuggestions aws zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -114,11 +118,6 @@ mcd ()
 }
 chpwd() ls
 
-echo "
-$(fortune -s)
-" | lolcat
-
-
 run() {
     number=$1
     shift
@@ -133,50 +132,21 @@ alias s="source"
 alias z="~/.zshrc"
 alias p="cd ~/Documents/projects"
 alias zz="c ~/.zshrc"
+alias pp="c ~/.p10k.zsh"
+alias sp="source ~/.p10k.zsh"
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
 alias dree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'"
 alias c=$c
 alias sw="/Volumes/Macintosh\ HD/usr/sbin/system_profiler SPSoftwareDataType"
 alias hd="/Volumes/Macintosh\ HD/usr/sbin/system_profiler SPHardwareDataType"
 
+
 #Cypress
 export CYPRESS_BASEURL="http://localhost:3000"
 
-#kubernetes
-export k=kubectl
-alias k="$k"
-alias kcon="$k config"
-alias kc="$k create"
-alias kg="$k get -o wide"
-alias kl="$k logs"
-alias kd="$k describe"
-alias kaf="$k apply -f"
-alias kdry="$k run --dry-run -o yaml"
-alias kdel="$k delete --grace-period=0 --force"
-alias kn="$k config set-context $(kubectl config current-context) --namespace"
-alias mstart="minikube start"
-alias mstop="minikube stop"
-# source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
-# if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
-# complete -F __start_kubectl k
-
-
-#Heroku
-export h='heroku'
-alias h="$h"
-alias hlogs="$h logs --remote origin"
-alias hlocal="$h local"
-alias hp="git push heroku master"
 #aws-cli
 alias ap="aws --profile personal"
 alias al="awslocal"
-
-#myob-auth
-export m="myob-auth"
-alias m=$m
-alias ml="$m l -username `whoami`"
-alias mc="$m clear"
-alias mtax="$m k -e europa-preprod -n tax"
 
 #brew
 export b=brew
@@ -221,6 +191,7 @@ alias gpmr="$g pull origin master --rebase"
 alias gss="$g stash save -u"
 alias gsp="$g stash pop"
 alias gl="$g log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'"
+alias gcm="$g add --all && $g commit --amend --no-edit && $g push -f"
 
 #git keybindings
 # git pull (ctrl-g+p)
@@ -249,20 +220,18 @@ alias yi="$y install"
 alias ya="$y add"
 alias yad="$y add -D"
 
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
-# export PATH="/usr/local/opt/node@10/bin:$PATH"
-
 export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-alias nvmload='[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
 
-#fun
-alias f="fortune -s | lolcat"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
